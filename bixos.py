@@ -1,3 +1,11 @@
+################################################################
+#                                                              #
+# Coisas legais a se fazer:                                    #
+# - Adicionar BeautifulSoup pra pegar os dados direto do site  #
+# - Solucionar a gambiarra dos Bar Plots                       #
+################################################################
+
+
 from matplotlib import pyplot as plt
 from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
@@ -6,6 +14,16 @@ import statistics
 import math
 import numpy as np
 import requests
+
+
+####### MODO VERBOSO PRA VER O QUE TA PRINTANDO #######
+VERBOSE = True # Se não quiser nada printando no console só seta pra False
+
+###### DIRETORIO DE ENTRADA #######
+diretorio_entrada = "bixos_raw.txt"
+####################################
+
+
 
 ################################# FUNCOES UTEIS ###########################################################################
 def classificacao(bixo):
@@ -53,6 +71,8 @@ def hist_plot(data, titlename = 10,x_axis = "Nota", y_axis = "Quantity", title =
     plt.show()
     ########################################################
 
+
+# Bar plots
 def bar_plot(titlename, names, values, rotate = False):
     #val_mean = statistics.mean(values) Ia fazer um gradiente de cores com as notas aqui mas sugou
     plt.bar(names, values, linewidth=0.5)
@@ -68,6 +88,7 @@ def bar_plot(titlename, names, values, rotate = False):
     plt.show()
 
 
+# Reduz o tamanho das palavras das cidades pra caber no plot (gabiarra total)
 def reduz_cidade(entry):
     cidades = {
     "RIO DE JANEIRO" : "RJ",
@@ -87,14 +108,6 @@ def reduz_cidade(entry):
     return entry
 ##################################################################################################################
 
-####### ATUALIZAR O URL PARA CASO ITA MUDE A ENTRADA ############
-# URL = "https://www.vestibular.ita.br/convocados_3f.htm"
-# r = requests.get(URL)
-# print("hey")
-# response = r.response() # Pegando o source code da pagina do ITA
-# print("he2y")
-
-response = "/home/rafa/Documentos/Testes/bixos/bixos_raw"
 
 # Incializações
 bixos = []
@@ -104,7 +117,7 @@ notas = [[],[], []]
 medias = [0,0,0,0,0,0]
 
 # magia negra pra pegar os dados de cada candidato.
-with open(response) as arq:
+with open(diretorio_entrada) as arq:
     for line in arq:
          if ("-" not in line and "MEDIA" not in line and "FASE" not in line):
              if line[2:43] != '':
@@ -152,7 +165,8 @@ bar_plot("Médias", materias, medias)
 ################### BAR PLOT DAS CIDADES ##################################
 bar_plot("Cidades", cidades, contagem, rotate = True)
 
-for index, cid in enumerate(cidades):
-    print("{}: {}".format(cid, contagem[index]))
 
-print(medias)
+if (VERBOSE):
+    for index, cid in enumerate(cidades):
+        print("{}: {}".format(cid, contagem[index]))
+    print(medias)
