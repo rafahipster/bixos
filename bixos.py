@@ -20,7 +20,7 @@ import requests
 VERBOSE = True # Se não quiser nada printando no console só seta pra False
 
 ###### DIRETORIO DE ENTRADA #######
-diretorio_entrada = "bixos_raw.txt"
+diretorio_entrada = "bixos_raw"
 ####################################
 
 
