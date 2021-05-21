@@ -9,5 +9,8 @@ O ITA sempre publica o resultado da mesma maneira ~porca~ em uma tabela em texto
 - Alterar o nome desse arquivo de texto dentro do programa para que ele seja lido.
 - Executar o programa.
 
+Para ser implementado futuramente:
+- Busca automática no código fonte do site com o BeautifulSoup.
+
 Motiva, bixaral, um dia acaba.
 
